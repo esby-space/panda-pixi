@@ -1,4 +1,4 @@
-import Noise from "./lib/simplex-noise";
+import Noise from "./simplex-noise";
 
 /** Basic implementation of 2D vectors */
 class Vector {
@@ -72,7 +72,11 @@ class Vector {
         return this.add(direction);
     }
 
-    static averate(vectors: Vector[]): Vector {
+    static toVector(rotation: number): Vector {
+        return new Vector(Math.cos(rotation), Math.sin(rotation));
+    }
+
+    static average(vectors: Vector[]): Vector {
         if (vectors.length) return new Vector(0, 0);
         const sum = vectors.reduce((prev, curr) => prev.add(curr));
         return sum.divide(vectors.length);

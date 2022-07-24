@@ -3,6 +3,7 @@ import { Application, Container, IAddOptions, Loader, settings, SCALE_MODES } fr
 export type Scene = {
     hasRun: boolean;
     container: Container;
+
     load?(): Promise<void>;
     init?(app: Application): void;
     update?(dt: number): void;
@@ -24,6 +25,7 @@ const App = {
         container = document.body,
         pixel = false,
         resolution = window.devicePixelRatio,
+        padding = 0,
     } = {}): void {
         this.app = new Application({
             width,
@@ -37,16 +39,16 @@ const App = {
         if (pixel) settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
         // handle resize
-        this.resize();
-        window.addEventListener("resize", () => this.resize());
+        this.resize(padding);
+        window.addEventListener("resize", () => this.resize(padding));
     },
 
-    resize() {
+    resize(padding: number) {
         if (!this.app) throw new Error("please run `App.init() first x_x`");
 
         const scale = Math.min(window.innerWidth / this.app.view.width, window.innerHeight / this.app.view.height);
-        this.app.view.style.width = `${scale * this.app.view.width}px`;
-        this.app.view.style.height = `${scale * this.app.view.height}px`;
+        this.app.view.style.width = `${scale * this.app.view.width - padding}px`;
+        this.app.view.style.height = `${scale * this.app.view.height - padding}px`;
     },
 
     /** Change scene, runs `Scene.init()` if it's the first time the scene is shown, runs `Scene.start()` every time it is shown. */
