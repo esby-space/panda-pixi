@@ -20,7 +20,7 @@ const main = async () => {
     await Panda.App.load(assets);
 
     // MAIN GAME! //
-    const scene = (await import("./examples/boids")).Scene;
+    const scene = (await import("./scene")).Scene;
     Panda.App.changeScene(scene);
 };
 
