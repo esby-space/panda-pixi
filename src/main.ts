@@ -12,12 +12,7 @@ const main = async () => {
         padding: 200,
     });
 
-    const assets = [
-        { name: "bricks", url: "assets/bricks.png" },
-        { name: "bai", url: "assets/bai.png" },
-    ];
-
-    await Panda.App.load(assets);
+    // make sure to load assets in before the scene
 
     // MAIN GAME! //
     const scene = (await import("./scene")).Scene;
